@@ -1,6 +1,6 @@
 # bi format
 
-Simple Structure Human-Readable Binary Format. It is used by such projects as [rere.py](https://github.com/tsoding/rere.py) and [Porth](https://gitlab.com/tsoding/porth).
+Simple Structured Human-Readable Binary Format. It is used by such projects as [rere.py](https://github.com/tsoding/rere.py) and [Porth](https://gitlab.com/tsoding/porth).
 
 The goals of the format:
 - So simple you don't need a library to Parse it or Serializer into it,
