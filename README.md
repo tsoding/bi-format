@@ -27,4 +27,26 @@ Here is how a bunch of integer fields would look like in a bi file:
 
 ### Blob fields
 
-TBD
+- A blob field starts with a sequence of bytes that if viewed as ASCII looks like `:b` followed by exactly ONE space.
+- After that comes a sequence of arbitrary bytes (excluding newline `\n`) which denotes the name of the field. The name ends with exactly ONE space.
+- After that comes a sequence of ASCII digits denoting the size of the Blob in bytes. There is no upper bound for integers. Handle overflows however you want.
+- After that comes exactly ONE newline `\n`
+- After that come the bytes of the Blob
+- After that comes exactly ONE newline `\n`
+
+Here is how a bunch of blob fields would look like in a bi file:
+
+```
+:i count 3
+:b hello 12
+Hello, World
+:b foo 7
+Foo bar
+:b test 169
+Test test test
+
+You can can have new lines in here.
+You can actually store binary data in here.
+You can nest another bi file in here, thus
+making the format a Tree-like.
+```
