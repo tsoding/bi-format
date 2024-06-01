@@ -8,7 +8,7 @@ The goals of the format:
 
 ## Description
 
-A bi file consist of sequence of fields. There are only 2 kinds of fields for now: integer and blob. (We may add more kinds of fields in the future, but it's very unlikely, because these two feel pretty sufficient for now).
+A bi file consist of sequence of fields. There are only 2 kinds of fields for now: integer and blob. (We may add more kinds of fields in the future, but it's very unlikely, because these two feel pretty sufficient for now). Each field has a name associated with it. Names don't have to be unique.
 
 ### Integer field
 
