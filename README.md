@@ -42,7 +42,7 @@ Here is how a bi file with a bunch of blob fields and an integer field would loo
 Hello, World
 :b foo 7
 Foo bar
-:b test 169
+:b test 167
 Test test test
 
 You can can have new lines in here.
