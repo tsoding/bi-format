@@ -34,7 +34,7 @@ Here is how a bunch of integer fields would look like in a bi file:
 - After that come the bytes of the Blob,
 - After that comes exactly ONE newline `\n`.
 
-Here is how a bunch of blob fields would look like in a bi file:
+Here is how a bi file with a bunch of blob fields and an integer field would look like:
 
 ```
 :i count 3
