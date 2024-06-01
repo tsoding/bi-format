@@ -53,7 +53,7 @@ making the format Tree-like.
 
 ## Be creative
 
-It is really encourage to get creative with this format. Who said you can't store other formats in the Blobs?
+It is really encouraged to get creative with this format. Who said you can't store other formats in the Blobs?
 
 ```
 :b Person/json 69
