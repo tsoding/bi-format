@@ -42,10 +42,10 @@ Here is how a bi file with a bunch of blob fields and an integer field would loo
 Hello, World
 :b foo 7
 Foo bar
-:b test 167
+:b test 163
 Test test test
 
-You can can have new lines in here.
+You can have new lines in here.
 You can actually store binary data in here.
 You can nest another bi file in here, thus
 making the format Tree-like.
