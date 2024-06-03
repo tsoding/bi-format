@@ -63,3 +63,10 @@ It is really encouraged to get creative with this format. Who said you can't sto
     "Occupation": "Webdev"
 }
 ```
+
+## External stuff
+
+Some things that have been made using the format/working with the format:
+
+- [rere.py](https://github.com/tsoding/rere.py) - universal testing tool for replaying commands
+- [TreeSitter parser](https://github.com/ej-shafran/tree-sitter-bi) - highlighting and the such for the BI format
