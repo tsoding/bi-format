@@ -56,14 +56,14 @@ int main(int argc, char **argv)
         if (read_entire_file(file_path, &buffer, &buffer_size)) {
             Bi bi = {.start = buffer, .count = buffer_size};
 
-            while (!bi_empty(bi)) {
+            while (!bi_is_empty(bi)) {
                 if (!bi_get_field(&bi)) {
                     fprintf(stderr, "%s[%zu]: Failed to parse a field. Dropping entire file...\n", file_path, bi.field.offset);
                     break;
                 }
                 switch (bi.field.type) {
                 case BI_BLOB:
-                    fprintf(stderr, "%s[%zu]: Blob with size %zu bytes\n", file_path, bi.field.offset, bi.field.blob_count);
+                    fprintf(stderr, "%s[%zu]: Blob with size %zu bytes\n", file_path, bi.field.offset, bi.field.integer);
                     break;
                 case BI_INT:
                     fprintf(stderr, "%s[%zu]: Integer with value %zu\n", file_path, bi.field.offset, bi.field.integer);

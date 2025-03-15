@@ -16,20 +16,19 @@ typedef struct {
     size_t offset;
 
     struct {
-        char type;
-        size_t offset;
+        size_t offset;          // offset at which the field starts
+        char type;              // BI_BLOB or BI_INT, might be something else if the file is incorrect, always check for that
         const char *name;
         size_t name_count;
 
+        size_t integer;         // acts like size of the blob when type is BI_BLOB
         const char *blob_start;
-        union {
-            size_t integer;
-            size_t blob_count;
-        };
     } field;
 } Bi;
 
-#define bi_empty(bi) ((bi).offset >= (bi).count)
+#define bi_is_empty(bi)  ((bi).offset >= (bi).count)
+#define bi_is_digit(x)   ('0' <= (x) && (x) <= '9') // so we don't depend on ctype.h
+#define bi_chop_byte(bi) ((bi)->start[(bi)->offset++])
 
 // Create a new Bi parser out of the blob field fetched with bi_get_field().
 // Useful to parse .bi recursively.
@@ -47,7 +46,7 @@ Bi bi_of_blob(Bi bi)
     assert(bi.field.type == BI_BLOB);
     return (Bi) {
         .start = bi.field.blob_start,
-        .count = bi.field.blob_count,
+        .count = bi.field.integer,
     };
 }
 
@@ -55,35 +54,35 @@ bool bi_get_field(Bi *bi)
 {
     bi->field.offset = bi->offset;
 
-    if (bi->offset >= bi->count || bi->start[bi->offset++] != ':') return false;
+    if (bi_is_empty(*bi) || bi_chop_byte(bi) != ':') return false;
 
-    if (bi->offset >= bi->count) return false;
-    bi->field.type = bi->start[bi->offset++];
+    if (bi_is_empty(*bi)) return false;
+    bi->field.type = bi_chop_byte(bi);
 
-    if (bi->offset >= bi->count || bi->start[bi->offset++] != ' ') return false;
+    if (bi_is_empty(*bi) || bi_chop_byte(bi) != ' ') return false;
 
     bi->field.name = &bi->start[bi->offset];
-    while (bi->offset < bi->count && bi->start[bi->offset] != ' ') {
+    while (!bi_is_empty(*bi) && bi->start[bi->offset] != ' ') {
         bi->field.name_count++;
         bi->offset++;
     }
 
-    if (bi->offset >= bi->count || bi->start[bi->offset++] != ' ') return false;
+    if (bi_is_empty(*bi) || bi_chop_byte(bi) != ' ') return false;
 
     bi->field.integer = 0;
-    while (bi->offset < bi->count && '0' <= bi->start[bi->offset] && bi->start[bi->offset] <= '9') {
+    while (!bi_is_empty(*bi) && bi_is_digit(bi->start[bi->offset])) {
         bi->field.integer *= 10;
-        bi->field.integer += bi->start[bi->offset++];
+        bi->field.integer += bi_chop_byte(bi);
         bi->field.integer -= '0';
     }
 
-    if (bi->offset >= bi->count || bi->start[bi->offset++] != '\n') return false;
+    if (bi_is_empty(*bi) || bi_chop_byte(bi) != '\n') return false;
 
     bi->field.blob_start = NULL;
     if (bi->field.type == BI_BLOB) {
         bi->field.blob_start = &bi->start[bi->offset];
-        bi->offset += bi->field.blob_count;
-        if (bi->offset >= bi->count || bi->start[bi->offset++] != '\n') return false;
+        bi->offset += bi->field.integer;
+        if (bi_is_empty(*bi) || bi_chop_byte(bi) != '\n') return false;
         return true;
     }
 
