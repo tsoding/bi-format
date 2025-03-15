@@ -3,7 +3,7 @@
 Simple Structured Human-Readable Binary Format. It is used by such projects as [rere.py](https://github.com/tsoding/rere.py) and [Porth](https://gitlab.com/tsoding/porth).
 
 The goals of the format:
-- So simple you don't need a library to Parse it or Serializer into it,
+- So simple you don't need a library to Parse it or Serializer into it (we do provide a reference implementation of a parser in C though [bi.h](./bi.h)),
 - If the data stored in the [Blobs](#blob-field) is Text the whole file looks like Text making any changes committed in VCS have a nice Human-Readable Diff.
 
 ## Description
