@@ -37,6 +37,9 @@ Bi bi_of_blob(Bi bi);
 // Parse the next field into bi->field. Returns true on success, returns false otherwise
 bool bi_get_field(Bi *bi);
 
+// Bi_Type as human readable name for logging
+const char *bi_display_type(Bi_Type type);
+
 #endif // BI_H_
 
 #ifdef BI_IMPLEMENTATION
@@ -88,6 +91,15 @@ bool bi_get_field(Bi *bi)
     }
 
     return true;
+}
+
+const char *bi_display_type(Bi_Type type)
+{
+    switch (type) {
+    case BI_INT:  return "Integer";
+    case BI_BLOB: return "Blob";
+    default:      return "Unknown";
+    }
 }
 
 #endif // BI_IMPLEMENTATION
