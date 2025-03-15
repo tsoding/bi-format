@@ -63,10 +63,10 @@ int main(int argc, char **argv)
                 }
                 switch (bi.field.type) {
                 case BI_BLOB:
-                    fprintf(stderr, "%s[%zu]: Blob with size %zu bytes\n", file_path, bi.field.offset, bi.field.integer);
+                    fprintf(stderr, "%s[%zu]: Blob `%.*s` with size %zu bytes\n", file_path, bi.field.offset, (int)bi.field.name_count, bi.field.name, bi.field.integer);
                     break;
                 case BI_INT:
-                    fprintf(stderr, "%s[%zu]: Integer with value %zu\n", file_path, bi.field.offset, bi.field.integer);
+                    fprintf(stderr, "%s[%zu]: Integer `%.*s` with value %zu\n", file_path, bi.field.offset, (int)bi.field.name_count, bi.field.name, bi.field.integer);
                     break;
                 default:
                     fprintf(stderr, "%s[%zu]: Unexpected field type at offset %zu", file_path, bi.field.offset);

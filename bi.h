@@ -62,6 +62,7 @@ bool bi_get_field(Bi *bi)
     if (bi_is_empty(*bi) || bi_chop_byte(bi) != ' ') return false;
 
     bi->field.name = &bi->start[bi->offset];
+    bi->field.name_count = 0;
     while (!bi_is_empty(*bi) && bi->start[bi->offset] != ' ') {
         bi->field.name_count++;
         bi->offset++;
